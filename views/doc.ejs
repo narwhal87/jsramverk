@@ -1,11 +1,20 @@
 <%- include('includes/header'); %>
     <h2>Dokument</h2>
-    <form method="POST" action="/" class="new-doc">
+    <form method="POST" 
+    <% if(doc) { %>
+        action="/update"<%
+    } else { %>
+        action="/"
+    <% } %>class="new-doc">
         <label for="title">Titel</label>
-        <input type="text" name="title" value="<%= doc.title %>" />
+        <input type="text" name="title" 
+        <% if(doc){ %>value="<%= doc.title %>"<% } %>/>
 
         <label for="content">Innehåll</label>
-        <textarea name="content"><%= doc.content %></textarea>
+        <textarea name="content"><% if(doc){ %><%= doc.content %><% } %></textarea>
+        
+        <input type="number" name="id" hidden value=
+        <%if (doc) {%>"<%= doc.rowid %>"<% } %> >
 
         <input type="submit" value="Uppdatera" />
     </form>

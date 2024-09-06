@@ -47,6 +47,9 @@ main {
     max-width: 64rem;
     margin: 1.4rem auto;
     flex: 1 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .new-doc {
@@ -71,4 +74,19 @@ footer {
 header a {
     text-decoration: none;
     color: unset;
+}
+
+.button {
+    padding: 0.5rem;
+    background-color: #0074D9;
+    color: #fff;
+    margin-top: 1rem;
+    border: 1px solid #dfdfdf;
+    border-radius: 10px;
+    text-decoration: none;
+    align-self: end;
+}
+
+.button:hover {
+    background-color: #0b66b5;
 }
