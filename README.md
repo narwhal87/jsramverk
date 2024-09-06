@@ -30,4 +30,10 @@ To run app.mjs, use
 node app.mjs
 ```
 
+To initialize/reset database use
+
+```
+bash db/reset_db.bash
+```
+
 Our port was undefined, so we hardcoded `port = 1338;` into `app.mjs`.
