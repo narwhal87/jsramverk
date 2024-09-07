@@ -1,7 +1,8 @@
 import 'dotenv/config'
 
-// const port = process.env.PORT;
-const port = 1338;
+const port = process.env.PORT || 1338;
+
+console.log(process.env)
 
 import express from 'express';
 import bodyParser from 'body-parser';
