@@ -9,9 +9,9 @@ Description: Documentation of choice of path at crossroads in project.
 Starter project for DV1677 JSRamverk
 # jsramverk
 
-=======
+===
 How to boot app.mjs
-=======
+===
 
 If you encounter a missing dotenv package error such as
 ```
@@ -29,6 +29,11 @@ To run app.mjs, use
 ```
 node app.mjs
 ```
+
+You may set the preferred port of the system using `export PORT=XXXX`.
+If the port is not set in the `dotenv` of the system, the app will run
+on port 1338.
+
 
 To initialize/reset database use
 

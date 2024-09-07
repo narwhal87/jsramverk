@@ -1,6 +1,6 @@
 import 'dotenv/config'
 
-const port = process.env.PORT || 1338;
+const port = process.env.PORT || 1338; // export PORT=1338 in terminal to set preferred port number
 
 console.log(process.env)
 
