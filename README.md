@@ -9,9 +9,7 @@ Description: Documentation of choice of path at crossroads in project.
 Starter project for DV1677 JSRamverk
 # jsramverk
 
-===
-How to boot app.mjs
-===
+# How to boot app.mjs
 
 If you encounter a missing dotenv package error such as
 ```
@@ -41,4 +39,6 @@ To initialize/reset database use
 bash db/reset_db.bash
 ```
 
-Our port was undefined, so we hardcoded `port = 1338;` into `app.mjs`.
+# Framework
+
+We will use either Angular or React as a JS framework.
