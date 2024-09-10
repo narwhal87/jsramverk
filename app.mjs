@@ -2,12 +2,17 @@ import 'dotenv/config';
 
 const port = process.env.PORT || 1338; // export PORT=1338 in terminal to set preferred port number
 
+// Import modules
 import express from 'express';
 import path from 'path';
 import morgan from 'morgan';
 import cors from 'cors';
 
-import documents from "../docs.mjs";
+// Import routes
+import index from './routes/index.mjs';
+import id from './routes/id.mjs';
+import newRoute from './routes/new.mjs';
+import update from './routes/update.mjs';
 
 const app = express();
 
@@ -28,34 +33,14 @@ if (process.env.NODE_ENV !== 'test') {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+// Define routes
+app.post('/update', update);
+app.get('/new', newRoute);
+app.use('/', index); // app.use only works if you have both post and get for some reason
+app.get('/:id', id);
 
-app.post("/", async (req, res) => {
-    const result = await documents.addOne(req.body);
 
-    return res.redirect(`/${result.lastID}`);
-});
-
-app.post("/update", async (req, res) => {
-    const result = await documents.update(req.body);
-
-    return res.redirect(`/${req.body.id}`);
-});
-
-app.get('/:id', async (req, res) => {
-    return res.render(
-        "doc",
-        { doc: await documents.getOne(req.params.id) }
-    );
-});
-
-app.get('/', async (req, res) => {
-    return res.render("index", { docs: await documents.getAll() });
-});
-
-app.get('/new', (res) => {
-    return res.render("doc");
-});
-
+// Error handling
 app.use((req, res, next) => {
     var err = new Error("Not Found");
     err.status = 404;

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon routes/app.mjs",
-    "production": "NODE_ENV='production' node routes/app.mjs"
+    "start": "nodemon app.mjs",
+    "production": "NODE_ENV='production' node app.mjs"
   },
   "keywords": [],
   "author": "",
