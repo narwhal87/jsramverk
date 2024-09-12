@@ -1,7 +1,7 @@
 <%- include('includes/header'); %>
     <h2>Dokument</h2>
     <form method="POST" 
-    <% if(doc) { %>
+    <% if(doc.title && doc.content) { %>
         action="/update"<%
     } else { %>
         action="/"
