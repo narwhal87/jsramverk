@@ -1,7 +1,5 @@
-// import openDb from './db/database.mjs';
 import database from "./new_db/database.js";
-let collection = "documents";
-// const ObjectId = require('mongodb').ObjectId;
+import { ObjectId } from "mongodb"
 
 const docs = {
     getAll: async function getAll() {
@@ -24,16 +22,22 @@ const docs = {
     // Implement when auto-increment is in place
     getOne: async function getOne(id) {
         let db = await database.getDb();
+        if (id.length === 24)
+        {
+            let query = ObjectId.createFromHexString(id);
+            try {
+                return await db.collection.find(
+                    {'_id': query}
+                ).toArray();
+            } catch (e) {
+                console.error(e);
 
-        try {
-            return await db.collection.find(id).toArray();
-        } catch (e) {
-            console.error(e);
-
-            return {};
-        } finally {
-            await db.client.close();
+                return {};
+            } finally {
+                await db.client.close();
+            }
         }
+        return {};
     },
 
     addOne: async function addOne(body) {
@@ -57,17 +61,15 @@ const docs = {
         let db = await database.getDb();
 
         try {
-            
-            const filter = { _id: ObjectId(body["_id"]) };
+            let query = ObjectId.createFromHexString(body.id);
             const updateDocument = {
-            name: body.name,
-            html: body.html,
+            '$set': {
+            'title': body.title,
+            'content': body.content
+            }
             };
 
-            const result = await db.collection.updateOne(
-                filter,
-                updateDocument,
-            );
+            const result = await db.collection.updateOne({'_id':query}, updateDocument);
 
         } catch (e) {
             console.error(e)

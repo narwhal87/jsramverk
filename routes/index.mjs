@@ -1,4 +1,4 @@
-import documents from "../docs.mjs";
+import documents from "../new_docs.mjs";
 import express from 'express';
 
 var router = express.Router();
@@ -9,7 +9,8 @@ router.get('/', async (req, res) => {
 
 router.post("/", async (req, res) => {
     const result = await documents.addOne(req.body);
-    res.json(`/${result.lastID}`);
+    console.log(result)
+    res.redirect(`/${result.insertedId}`);
 });
 
 export default router;
