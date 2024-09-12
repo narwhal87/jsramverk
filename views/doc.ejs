@@ -1,7 +1,7 @@
 <%- include('includes/header'); %>
     <h2>Dokument</h2>
     <form method="POST" 
-    <% if(doc) { %>
+    <% if (doc.title) { %>
         action="/update"<%
     } else { %>
         action="/"
@@ -16,6 +16,10 @@
         <input type="number" name="id" hidden value=
         <%if (doc) {%>"<%= doc.rowid %>"<% } %> >
 
-        <input type="submit" value="Uppdatera" />
+        <% if (doc.title) { %>
+            <input type="submit" value="Uppdatera" />
+        <% } else { %>
+            <input type="submit" value="Lägg till" />
+        <% } %>
     </form>
 <%- include('includes/footer'); %>

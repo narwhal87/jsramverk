@@ -2,6 +2,8 @@
     <h2>Dokument</h2>
     <% docs.forEach(function(doc){ %>
         <h3><a href="/<%= doc.id %>"><%= doc.title %></a></h3>
+        <p><%= doc.id %></p>
+        <p><%= doc.content %></p>
     <% }); %>
     <a class="button" href="/new">Nytt  dokument</a>
 <%- include('includes/footer'); %>

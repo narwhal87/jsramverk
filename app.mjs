@@ -8,7 +8,8 @@ import path from 'path';
 import morgan from 'morgan';
 import cors from 'cors';
 
-import documents from "./docs.mjs";
+// import documents from "./docs.mjs";
+import documents from "./new_docs.mjs";
 
 const app = express();
 
@@ -33,11 +34,11 @@ app.post("/", async (req, res) => {
     return res.redirect(`/${result.lastID}`);
 });
 
-app.post("/update", async (req, res) => {
-    const result = await documents.update(req.body);
+// app.post("/update", async (req, res) => {
+//     const result = await documents.update(req.body);
 
-    return res.redirect(`/${req.body.id}`);
-});
+//     return res.redirect(`/${req.body.id}`);
+// });
 
 app.get('/:id', async (req, res) => {
     return res.render(
