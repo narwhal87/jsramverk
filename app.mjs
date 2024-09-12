@@ -8,8 +8,11 @@ import path from 'path';
 import morgan from 'morgan';
 import cors from 'cors';
 
-// import documents from "./docs.mjs";
-import documents from "./new_docs.mjs";
+// Import routes
+import index from './routes/index.mjs';
+import id from './routes/id.mjs';
+import newRoute from './routes/new.mjs';
+import update from './routes/update.mjs';
 
 const app = express();
 
@@ -44,25 +47,20 @@ app.use((req, res, next) => {
     next(err);
 });
 
-// app.post("/update", async (req, res) => {
-//     const result = await documents.update(req.body);
+app.use((err, req, res, next) => {
+    if (res.headersSent) {
+        return next(err);
+    }
 
-//     return res.redirect(`/${req.body.id}`);
-// });
-
-app.get('/:id', async (req, res) => {
-    return res.render(
-        "doc",
-        { doc: await documents.getOne(req.params.id) }
-    );
-});
-
-app.get('/', async (req, res) => {
-    return res.render("index", { docs: await documents.getAll() });
-});
-
-app.get('/new', (res) => {
-    return res.render("doc");
+    res.status(err.status || 500).json({
+        "errors": [
+            {
+                "status": err.status,
+                "title":  err.message,
+                "detail": err.message
+            }
+        ]
+    });
 });
 
 app.listen(port, () => {
