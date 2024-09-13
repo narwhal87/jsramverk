@@ -1,0 +1,25 @@
+services:
+    express:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        environment:
+            - DBWEBB_DSN=mongodb://mongodb:27017/jsramverk
+        volumes:
+            - ./:/app/
+            - /node_modules/
+        ports:
+            - 1338:1338
+        links:
+            - mongodb
+        command: "npm start"
+
+    mongodb:
+        image: mongo
+        environment:
+            - MONGO_DATA_DIR=/data/db
+        volumes:
+            - ./data/db:/data/db
+        ports:
+            - 27017:27017
+        command: mongod

@@ -11,7 +11,6 @@ import cors from 'cors';
 // Import routes
 import index from './routes/index.mjs';
 import id from './routes/id.mjs';
-import newRoute from './routes/new.mjs';
 import update from './routes/update.mjs';
 
 const app = express();
@@ -35,7 +34,6 @@ app.use(express.urlencoded({ extended: true }));
 
 // Define routes
 app.post('/update', update);
-app.get('/new', newRoute);
 app.use('/', index); // app.use only works if you have both post and get for some reason
 app.get('/:id', id);
 

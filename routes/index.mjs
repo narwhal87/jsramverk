@@ -1,10 +1,10 @@
-import documents from "../new_docs.mjs";
+import documents from "../docs.mjs";
 import express from 'express';
 
 var router = express.Router();
 
 router.get('/', async (req, res) => {
-    res.json({data: await documents.getAll() });
+    return res.json({data: await documents.getAll() });
 });
 
 router.post("/", async (req, res) => {
