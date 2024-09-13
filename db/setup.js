@@ -3,8 +3,10 @@
  */
 "use strict";
 
+require('dotenv').config();
 const mongo = require("mongodb").MongoClient;
-const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/jsramverk";
+let dsn = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@jsramverk.8gn6u.mongodb.net/?retryWrites=true&w=majority&appName=jsramverk`;
+//const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/jsramverk";
 
 const fs = require("fs"); // File streaming
 const path = require("path");
