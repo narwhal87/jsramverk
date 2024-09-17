@@ -2,10 +2,10 @@
   "name": "ssr-editor",
   "version": "1.0.0",
   "description": "Starter project for DV1677 JSRamverk",
-  "main": "index.js",
+  "main": "app.mjs",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.mjs"
+    "test": "jest --coverage --runInBand",
+    "start": "node app.js"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +20,17 @@
     "nodemon": "^3.1.4",
     "sqlite": "^5.1.1",
     "sqlite3": "^5.1.7"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "supertest": "^7.0.0"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ],
+    "collectCoverage": true,
+    "coverageReporters": ["json", "html"]
   }
 }
