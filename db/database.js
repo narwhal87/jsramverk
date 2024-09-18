@@ -8,7 +8,7 @@ const database = {
         //let dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/jsramverk";
         
         if (process.env.NODE_ENV === 'test') {
-           dsn = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@jsramverk.8gn6u.mongodb.net/test?retryWrites=true&w=majority&appName=jsramverk`;
+           dsn = `mongodb+srv://Tester:superTest@jsramverk.8gn6u.mongodb.net/test?retryWrites=true&w=majority&appName=jsramverk`;
         }
 
         const client  = await mongo.connect(dsn);
