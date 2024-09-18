@@ -1,6 +1,13 @@
 require('dotenv/config');
 
-let port = process.env.PORT || 1338; // export PORT=1338 in terminal to set preferred port number
+let port;
+if (process.env.NODE_ENV === 'test') {
+    port = 1339;
+} else {
+    port = process.env.PORT || 1338; // export PORT=1338 in terminal to set preferred port number
+}
+
+// const port = process.env.PORT || 1338; // export PORT=1338 in terminal to set preferred port number
 
 if (process.env.NODE_ENV == 'test') {
     port = 1339;
