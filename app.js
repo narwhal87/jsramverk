@@ -47,7 +47,7 @@ app.use(express.urlencoded({ extended: true }));
 // Define routes
 app.post('/update', update);
 app.use('/', index); // app.use only works if you have both post and get for some reason
-app.get('/:id', id);
+app.get('/doc/:id', id);
 app.post('/delete', remove);
 
 
