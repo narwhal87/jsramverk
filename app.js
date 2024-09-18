@@ -9,6 +9,9 @@ if (process.env.NODE_ENV === 'test') {
 
 // const port = process.env.PORT || 1338; // export PORT=1338 in terminal to set preferred port number
 
+if (process.env.NODE_ENV == 'test') {
+    port = 1339;
+}
 // Import modules
 const express = require('express');
 const path = require('path');
@@ -72,7 +75,7 @@ app.use((err, req, res, next) => {
 });
 
 const server = app.listen(port, () => {
-  console.log(`API backend listening on port ${port}`)
+  console.log(`API backend listening on port ${port}`);
   app.emit('ready');
 });
 
