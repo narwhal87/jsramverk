@@ -4,11 +4,11 @@ const collectionName = "documents";
 
 const database = {
     getDb: async function getDb () {
-        let dsn = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@jsramverk.8gn6u.mongodb.net/?retryWrites=true&w=majority&appName=jsramverk`;
+        let dsn = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@jsramverk.8gn6u.mongodb.net/jsramverk?retryWrites=true&w=majority&appName=jsramverk`;
         //let dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/jsramverk";
         
         if (process.env.NODE_ENV === 'test') {
-           dsn = "mongodb://localhost:27017/test";
+           dsn = `mongodb+srv://Tester:superTest@jsramverk.8gn6u.mongodb.net/test?retryWrites=true&w=majority&appName=jsramverk`;
         }
 
         const client  = await mongo.connect(dsn);

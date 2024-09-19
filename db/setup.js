@@ -2,25 +2,29 @@
  * Connect to the database and setup it with some default data.
  */
 "use strict";
-
-require('dotenv').config();
 const mongo = require("mongodb").MongoClient;
-let dsn = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@jsramverk.8gn6u.mongodb.net/?retryWrites=true&w=majority&appName=jsramverk`;
-//const dsn =  process.env.DBWEBB_DSN || "mongodb://localhost:27017/jsramverk";
+require('dotenv').config();
 
-const fs = require("fs"); // File streaming
-const path = require("path");
-const docs = JSON.parse(fs.readFileSync(
-    path.resolve(__dirname, "setup.json"),
-    "utf8"
-));
+async function main() {
 
-
-
-// Do it.
-resetCollection(dsn, "documents", docs)
-    .catch(err => console.log(err));
-
+    let dsn = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@jsramverk.8gn6u.mongodb.net/jsramverk?retryWrites=true&w=majority&appName=jsramverk`;
+    
+    if (process.env.NODE_ENV === 'test') {
+        dsn = `mongodb+srv://Tester:superTest@jsramverk.8gn6u.mongodb.net/test?retryWrites=true&w=majority&appName=jsramverk`;
+    }
+    
+    const fs = require("fs"); // File streaming
+    const path = require("path");
+    const docs = JSON.parse(fs.readFileSync(
+        path.resolve(__dirname, "setup.json"),
+        "utf8"
+    ));
+    
+    // Do it.
+    await resetCollection(dsn, "documents", docs)
+        .catch(err => console.log(err));
+    return
+}
 
 
 /**
@@ -47,3 +51,5 @@ async function resetCollection(dsn, colName, doc) {
 
     await client.close();
 }
+
+module.exports = main;

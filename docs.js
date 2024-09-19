@@ -4,11 +4,11 @@ const { ObjectId } = require('mongodb');
 const docs = {
     getAll: async function getAll() {
         let db = await database.getDb();
-
+    
         try {
             let res = await db.collection.find({}).toArray();
             return res;
-        } catch (e) {
+        } catch (e) {   
             console.error(e);
 
             return [];

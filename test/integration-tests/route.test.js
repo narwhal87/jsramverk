@@ -46,15 +46,15 @@ describe('Reports', () => {
             .send({"title": "Updated title", "content": "Updated content", 'id': docId})
             .expect(200);
             const response = await request(app)
-            .get('/' + docId)
+            .get('/doc/' + docId)
             expect(JSON.parse(response.text).data[0]).toMatchObject({'_id': docId, "title": "Updated title", "content": "Updated content"})
         });            
     });
 
-    describe('GET /:id', () => {
+    describe('GET /doc/:id', () => {
         it('Should get a specific document', async () => {
             await request(app)
-            .get('/' + docId)
+            .get('/doc/' + docId)
             .expect(200)
         });
     });
@@ -68,4 +68,12 @@ describe('Reports', () => {
             .expect(410);
         });
     });
+
+    describe('GET not found', () => {
+        it('Should raise error message', async () => {
+            await request(app)
+            .get('/pizzaplace')
+            .expect(404)
+        })
+    })
 });

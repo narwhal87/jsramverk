@@ -12,7 +12,6 @@ describe('Reports', () => {
 
     beforeAll(async () => {
         db = await database.getDb();
-        console.log(db);
     });
 
     afterAll(async () => {
@@ -21,11 +20,12 @@ describe('Reports', () => {
 
     it('should just test something', async () => {
         
-        const testBody = {"test": "woohoo"};
+        const testBody = {"title": "woohoo"};
         await db.collection.insertOne(testBody);
         
         const findTest = await db.collection.findOne(testBody);
         expect(findTest).toEqual(testBody);
+        await db.collection.deleteOne(testBody);
     });
 
 });
