@@ -9,6 +9,7 @@ router.get('/', async (req, res) => {
 
 router.post("/", async (req, res) => {
     const result = await documents.addOne(req.body);
+
     res.status(201);
     res.send(result.insertedId);
 });

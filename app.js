@@ -1,13 +1,12 @@
 require('dotenv/config');
 
 let port;
+
 if (process.env.NODE_ENV === 'test') {
     port = 1339;
 } else {
     port = process.env.PORT || 1338; // export PORT=1338 in terminal to set preferred port number
 }
-
-// const port = process.env.PORT || 1338; // export PORT=1338 in terminal to set preferred port number
 
 if (process.env.NODE_ENV == 'test') {
     port = 1339;
@@ -54,6 +53,7 @@ app.post('/delete', remove);
 // Error handling
 app.use((req, res, next) => {
     var err = new Error("Not Found");
+
     err.status = 404;
     next(err);
 });
@@ -75,8 +75,8 @@ app.use((err, req, res, next) => {
 });
 
 const server = app.listen(port, () => {
-  console.log(`API backend listening on port ${port}`);
-  app.emit('ready');
+    console.log(`API backend listening on port ${port}`);
+    app.emit('ready');
 });
 
 module.exports = server;
