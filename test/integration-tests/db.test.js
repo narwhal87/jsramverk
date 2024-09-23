@@ -1,10 +1,6 @@
 process.env.NODE_ENV = 'test';
 
-const {MongoClient} = require("mongodb");
-const request = require('supertest');
 const app = require("../../app");
-let docId = "";
-
 const database = require("../../db/database.js");
 
 describe('Reports', () => {
@@ -18,7 +14,7 @@ describe('Reports', () => {
         db.client.close(); //client?
     });
 
-    it('should just test something', async () => {
+    it('Should test if insertOne works', async () => {
         const testBody = {"title": "woohoo"};
 
         await db.collection.insertOne(testBody);

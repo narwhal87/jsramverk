@@ -50,7 +50,8 @@ describe('Testing docs.js success', () => {
     describe('removeOne', () => {
         it('Should remove one document from the database', async () => {
             await docs.remove({'id': toRemove});
-            all = await docs.getAll();
+            let all = await docs.getAll();
+
             all.forEach(document => {
                 expect(document._id.toString()).not.toMatch(toRemove);
             });

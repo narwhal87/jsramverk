@@ -3,11 +3,11 @@ process.env.NODE_ENV = 'test';
 describe('Reports', () => {
     let app;
     let request;
+    let docId;
 
     beforeAll(() => {
         request = require('supertest');
         app = require("../../app");
-        let docId = "";
     });
 
     afterAll(() => {
@@ -48,7 +48,8 @@ describe('Reports', () => {
             const response = await request(app)
                 .get('/doc/' + docId);
 
-            expect(JSON.parse(response.text).data[0]).toMatchObject({'_id': docId, "title": "Updated title", "content": "Updated content"});
+            expect(JSON.parse(response.text).data[0]).toMatchObject({'_id': docId,
+                "title": "Updated title", "content": "Updated content"});
         });
     });
 
