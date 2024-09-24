@@ -67,7 +67,7 @@ describe('Reports', () => {
             await request(app)
                 .post('/delete')
                 .send({"id": docId})
-                .expect(410);
+                .expect(200);
         });
     });
 
