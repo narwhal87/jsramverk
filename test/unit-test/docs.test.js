@@ -14,7 +14,7 @@ describe('Testing docs.js success', () => {
         expect(all.length).toBeGreaterThan(1);
         docId = all[0]._id.toString();
         toRemove = all[1]._id.toString();
-    });
+    }, 5000);
 
     describe('GetAll', () => {
         it('Should return all documents', async () => {
