@@ -16,12 +16,23 @@ const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
 const cors = require('cors');
+const mongoose = require('mongoose');
 
 // Import routes
 const index = require('./routes/index.js');
 const id = require('./routes/id.js');
 const update = require('./routes/update.js');
 const remove = require('./routes/delete.js');
+const register = require('./routes/register.js');
+
+// Import db
+const database = require('./db/database.js');
+
+//Test mongoose connection
+database.mongoConnection()
+mongoose.connection.once('open', function() {
+    console.log("MongoDB database connection established successfully");
+});
 
 
 const app = express();
@@ -48,6 +59,10 @@ app.post('/update', update);
 app.use('/', index); // app.use only works if you have both post and get for some reason
 app.get('/doc/:id', id);
 app.post('/delete', remove);
+app.get('/register', register);
+app.post('/register', register);
+app.post('/registernew', register);
+app.post('/login', register);
 
 
 // Error handling
