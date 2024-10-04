@@ -18,6 +18,9 @@ const userSchema = new mongoose.Schema({
         // required: true,
         // min: 1,
         // max: 255
+    },
+    salt: {
+        type: String,
     }
 });
 
