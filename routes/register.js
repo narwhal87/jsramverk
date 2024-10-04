@@ -35,8 +35,6 @@ router.post('/register', async (req, res) => {
         "salt": salt
     });
 
-    // console.log("Request with: ", req.body, user);
-
     try {
         // If username exists, return 400
         const userConfirmation = await User.findOne({username: req.body.username});
@@ -44,7 +42,7 @@ router.post('/register', async (req, res) => {
 
         // Save user to database and return 200 with user data database extract.
         const savedUser = await user.save();
-        return res.send(savedUser);
+        return res.send({"data": savedUser});
 
     } catch (e) {
         res.status(400).send(e);
