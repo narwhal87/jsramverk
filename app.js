@@ -61,7 +61,7 @@ app.get('/doc/:id', id);
 app.post('/delete', remove);
 app.get('/register', register);
 app.post('/register', register);
-app.post('/registernew', register);
+// app.post('/registernew', register);
 app.post('/login', register);
 
 

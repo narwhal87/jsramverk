@@ -21,16 +21,7 @@ router.get('/register', async (req, res) => {
     }
 });
 
-router.post('/register', (req, res) => {
-    try {
-
-    } catch (e) {
-        res.status(500);
-        res.send("fuck o");
-    }
-});
-
-router.post('/registernew', async (req, res) => {
+router.post('/register', async (req, res) => {
     
     // Validade input data with Joi
     const { error } = registerValidation(req.body);
