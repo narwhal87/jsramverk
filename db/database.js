@@ -56,7 +56,7 @@ const database = {
             console.log(collections)
 
         } catch (err) {
-            handleError(error);
+            console.log(err);
         }
     }
 

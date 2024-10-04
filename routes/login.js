@@ -17,6 +17,8 @@ router.post('/login', async (req, res) => {
         password: req.body.password,
     });
 
+    console.log(user);
+
     try {
         const userConfirmation = await User.findOne({username: req.body.username});
         if (!userConfirmation) return res.status(400).send("User does not exists.");
@@ -34,7 +36,7 @@ router.post('/login', async (req, res) => {
 
         if (!token) return res.status(500);
 
-        return res.header("auth-token", token).send(token);
+        return res.header("auth-token", token).send({"token": token});
 
     } catch (e) {
         res.status(400).send(e);
