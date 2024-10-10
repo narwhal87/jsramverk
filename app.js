@@ -35,7 +35,6 @@ mongoose.connection.once('open', function() {
     console.log("MongoDB database connection established successfully");
 });
 
-
 const app = express();
 
 app.disable('x-powered-by');

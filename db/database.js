@@ -26,6 +26,7 @@ const database = {
         };
     },
 
+    // Same as getDb but with collection "Users"
     getAuthDb: async function getAuthDb() {
         let dsn = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@jsramverk.8gn6u.mongodb.net/jsramverk?retryWrites=true&w=majority&appName=jsramverk`;
 

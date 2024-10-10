@@ -3,7 +3,9 @@ const express = require('express');
 
 var router = express.Router();
 
-router.post("/update", async (req, res) => {
+router.post("/update", 
+    (req, res, next) => auth.checkToken(req, res, next),
+    async (req, res) => {
     try {
         const result = await documents.update(req.body);
 
