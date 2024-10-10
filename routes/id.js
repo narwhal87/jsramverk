@@ -3,7 +3,9 @@ const express = require('express');
 
 var router = express.Router();
 
-router.get('/doc/:id', async (req, res) => {
+router.get('/doc/:id', 
+    (req, res, next) => auth.checkToken(req, res, next),
+    async (req, res) => {
     try {
         res.json({data: await documents.getOne(req.params.id)});
     } catch (e) {

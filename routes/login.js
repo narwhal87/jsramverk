@@ -30,8 +30,10 @@ router.post('/login', async (req, res) => {
         if (!validate) return res.status(400).send("Invalid Password");
 
         const token = jwt.sign(
-            { id: userConfirmation._id },
-            process.env.SECRET_JWT // Does this has to be this way? Why not random string?
+            { 
+                id: userConfirmation._id
+            },
+            process.env.SECRET_JWT
         )
 
         if (!token) return res.status(500);

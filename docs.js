@@ -2,11 +2,13 @@ const database = require('./db/database.js');
 const { ObjectId } = require('mongodb');
 
 const docs = {
-    getAll: async function getAll() {
+    getAll: async function getAll(queryBody) {
+
+        //querybody {owner: username}
         let db = await database.getDb();
 
         try {
-            let res = await db.collection.find({}).toArray();
+            let res = await db.collection.find(queryBody).toArray();
 
             return res;
         } catch (e) {
@@ -46,7 +48,9 @@ const docs = {
         try {
             const doc = {
                 title: body.title,
-                content: body.content
+                content: body.content,
+                owner: body.username,
+                ownerID: body.userID
             };
 
             return await db.collection.insertOne(doc);
