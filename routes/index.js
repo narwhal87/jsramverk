@@ -16,11 +16,14 @@ router.get('/',
         if (!userID) return res.status(400).send("Access denied!");
 
         const currentUser = await User.findById(userID.id);
-        console.log(currentUser);
+        // console.log(currentUser);
+        console.log("Im in / get");
         if (!currentUser) return res.status(400).send("Access denied!");
         const queryBody = {
             owner: currentUser.username
         };
+
+        // req.body = await auth.checkUser(req, res);
 
         try {
             const data = await documents.getAll(queryBody);
@@ -43,7 +46,8 @@ router.post("/",
         if (!userID) return res.status(400).send("Access denied!");
 
         const currentUser = await User.findById(userID.id);
-        console.log(currentUser);
+        // console.log(currentUser);
+        console.log("Im in / post");
         if (!currentUser) return res.status(400).send("Access denied!");
         req.body = {
             ...req.body,
@@ -51,7 +55,9 @@ router.post("/",
             userID: userID.id
         }
 
-        console.log(req.body);
+        // req.body = await auth.checkUser(req, res);
+
+        // console.log(req.body);
 
         try {
             const result = await documents.addOne(req.body);
