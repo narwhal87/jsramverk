@@ -61,6 +61,7 @@ router.post("/",
 
         try {
             const result = await documents.addOne(req.body);
+            console.log(result);
 
             res.status(201);
             res.send(result);
