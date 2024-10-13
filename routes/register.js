@@ -38,7 +38,7 @@ router.post('/register', async (req, res) => {
     try {
         // If username exists, return 400
         const userConfirmation = await User.findOne({username: req.body.username});
-        if (userConfirmation) return res.status(400).send("User already exists.");
+        if (userConfirmation) return res.status(400).send({"message": "User already exists.", "status": 400});
 
         // Save user to database and return 200 with user data database extract.
         const savedUser = await user.save();

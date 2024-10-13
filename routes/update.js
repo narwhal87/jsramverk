@@ -1,5 +1,6 @@
 const documents = require("../docs.js");
 const express = require('express');
+const auth = require('../models/auth.js');
 
 var router = express.Router();
 
