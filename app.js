@@ -25,6 +25,7 @@ const update = require('./routes/update.js');
 const remove = require('./routes/delete.js');
 const register = require('./routes/register.js');
 const login = require('./routes/login.js');
+const share = require('./routes/share.js');
 
 // Import db
 const database = require('./db/database.js');
@@ -62,6 +63,8 @@ app.post('/delete', remove);
 app.get('/register', register);
 app.post('/register', register);
 app.post('/login', login);
+app.post('/share', share);
+app.get('/share', share);
 
 
 // Error handling

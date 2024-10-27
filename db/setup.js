@@ -21,9 +21,15 @@ async function main() {
         path.resolve(__dirname, "setup.json"),
         "utf8"
     ));
+    const users = JSON.parse(fs.readFileSync(
+        path.resolve(__dirname, "users.json"),
+        "utf8"
+    ));
 
     // Do it.
     await resetCollection(dsn, "documents", docs)
+        .catch(err => console.log(err));
+    await resetCollection(dsn, "users", users)
         .catch(err => console.log(err));
     return;
 }
