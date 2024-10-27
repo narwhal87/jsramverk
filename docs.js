@@ -2,6 +2,7 @@ const database = require('./db/database.js');
 const { ObjectId } = require('mongodb');
 const mailgun = require('./models/mailgun.js');
 const { query } = require('express');
+const { db } = require('./db/users.js');
 
 const docs = {
     getAll: async function getAll(queryBody) {
@@ -133,7 +134,7 @@ const docs = {
             // Set or update document viewer property
             if (!document[0].viewer) {
                 document[0].viewer = [body.email];
-            } else {
+            } else if (typeof(document[0].viewer) === "object" && !document[0].viewer.includes(body.email)) {
                 document[0].viewer.push(body.email);
             }
 
@@ -153,6 +154,14 @@ const docs = {
             await db.client.close();
         }
     },
+
+    checkEmailExists: async function checkEmailExists(document, email) {
+        try {
+            return document.includes(email);
+        } catch (e) {
+            console.error(e);
+        }
+    }
 };
 
 module.exports = docs;
