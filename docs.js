@@ -1,14 +1,28 @@
 const database = require('./db/database.js');
 const { ObjectId } = require('mongodb');
+const mailgun = require('./models/mailgun.js');
+const { query } = require('express');
 
 const docs = {
     getAll: async function getAll(queryBody) {
 
-        //querybody {owner: username}
+        console.log("getAll with queryBody ", queryBody);
+
         let db = await database.getDb();
+        let res = [];
+
+        queryBody = {
+            ...queryBody,
+            // viewer: "alfpn87@gmail.com"
+        }
 
         try {
-            let res = await db.collection.find(queryBody).toArray();
+            if (queryBody.owner) {
+                res = await db.collection.find({owner: queryBody.owner}).toArray();    
+            }
+            if (queryBody.viewer) {
+                res = res.concat(await db.collection.find({viewer: queryBody.viewer}).toArray());    
+            }
 
             return res;
         } catch (e) {
@@ -50,7 +64,8 @@ const docs = {
                 title: body.title,
                 content: body.content,
                 owner: body.username,
-                ownerID: body.userID
+                ownerID: body.userID,
+                viewer: body.email
             };
 
             return await db.collection.insertOne(doc);
@@ -78,6 +93,9 @@ const docs = {
             if (body.content != undefined) {
                 updateDocument['$set'].content = body.content;
             }
+            if (body.viewer != undefined) {
+                updateDocument['$set'].viewer = body.viewer;
+            }
 
             await db.collection.updateOne({'_id': query}, updateDocument);
         } catch (e) {
@@ -99,7 +117,42 @@ const docs = {
         } finally {
             await db.client.close();
         }
-    }
+    },
+
+    share: async function share(body) {
+        let db = await database.getDb();
+
+        try {
+            // Send e-mail with Mailgun
+            mailgun.mgShare(body.email);
+
+            // Get document
+            const document = await this.getOne(body.id);
+            console.log("document: ", document);
+
+            // Set or update document viewer property
+            if (!document[0].viewer) {
+                document[0].viewer = [body.email];
+            } else {
+                document[0].viewer.push(body.email);
+            }
+
+            // Push viewer update to database
+            body = {
+                ...body,
+                viewer: document[0].viewer
+            }
+
+            console.log("Update document with new body", body);
+            
+            const res = await this.update(body);
+
+        } catch (e) {
+            console.error(e);
+        } finally {
+            await db.client.close();
+        }
+    },
 };
 
 module.exports = docs;

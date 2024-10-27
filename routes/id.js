@@ -18,17 +18,17 @@ router.get('/doc/:id',
 
         const currentUser = await User.findById(userID.id);
         if (!currentUser) return res.status(400).send("Access denied!");
-        // req.body = {
-        //     ...req.body,
-        //     username: currentUser.username,
-        //     userID: userID.id
-        // }
-
-        console.log("Im in doc id");
-        // console.log(req.body);
 
         try {
-            res.json({data: await documents.getOne(req.params.id)});
+            const result = await documents.getOne(req.params.id);
+            
+            // console.log("Result", result);
+            if ((result[0].viewer && result[0].viewer.includes(currentUser.email)) || userID.id === result[0].ownerID) {
+                // console.log("Viewer", result[0].viewer);
+                res.json({data: result});
+            }
+
+            // res.json({data: result});
         } catch (e) {
             res.status(500);
             res.send({"message": "Something went wrong.", "error": e});

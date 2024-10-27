@@ -17,10 +17,12 @@ router.get('/',
 
         const currentUser = await User.findById(userID.id);
         // console.log(currentUser);
-        console.log("Im in / get");
+        // console.log("Im in / get");
         if (!currentUser) return res.status(400).send("Access denied!");
+        
         const queryBody = {
-            owner: currentUser.username
+            owner: currentUser.username,
+            viewer: currentUser.email,
         };
 
         // req.body = await auth.checkUser(req, res);

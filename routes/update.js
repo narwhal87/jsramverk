@@ -9,8 +9,7 @@ router.post("/update",
     async (req, res) => {
     try {
         const result = await documents.update(req.body);
-
-        res.json(result);
+        res.json(result); // returns nothing
     } catch (e) {
         res.status(500);
         res.send({"message": "Something went wrong.", "error": e});
