@@ -4,3 +4,4 @@ node_modules/
 example/
 data/
 coverage/
+db/users.json
