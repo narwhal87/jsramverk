@@ -48,7 +48,6 @@ const docs = {
                 ).toArray();
             } catch (e) {
                 console.error(e);
-
                 return {};
             } finally {
                 await db.client.close();

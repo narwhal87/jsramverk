@@ -4,10 +4,22 @@ describe('Reports', () => {
     let app;
     let request;
     let docId;
+    let token;
 
-    beforeAll(() => {
+    beforeAll(async () => {
         request = require('supertest');
         app = require("../../app");
+        let user = {
+            username: "test",
+            password: "pwd123"
+        }
+        const response = await request(app)
+            .post('/login')
+            .send(user);
+        token = response.body.token;
+        // token = (await request(app).get('/authentication/test')).body.token;
+
+        // token = process.env.JEST_MOCK_TOKEN;
     });
 
     afterAll(() => {
@@ -18,6 +30,8 @@ describe('Reports', () => {
         it('Should return all documents', async () => {
             await request(app)
                 .get("/")
+                .send({"owner": "test"})
+                .set('auth-token', `${token}`)
                 .expect('Content-Type', /json/)
                 .expect(200)
                 .then( ({ body }) => {
@@ -31,10 +45,11 @@ describe('Reports', () => {
             await request(app)
                 .post("/")
                 .send({"title": "test", "content": "test new content"})
+                .set('auth-token', `${token}`)
                 .expect(201)
                 .then(({ body }) => {
-                    docId = body;
-                    expect(body).toHaveLength(24);
+                    docId = body.insertedId;
+                    expect(body.insertedId).toHaveLength(24);
                 });
         });
     });
@@ -44,9 +59,12 @@ describe('Reports', () => {
             await request(app)
                 .post("/update")
                 .send({"title": "Updated title", "content": "Updated content", 'id': docId})
+                .set('auth-token', `${token}`)
                 .expect(200);
+                
             const response = await request(app)
-                .get('/doc/' + docId);
+                .get('/doc/' + docId)
+                .set('auth-token', `${token}`);
 
             expect(JSON.parse(response.text).data[0]).toMatchObject({'_id': docId,
                 "title": "Updated title", "content": "Updated content"});
@@ -57,6 +75,7 @@ describe('Reports', () => {
         it('Should get a specific document', async () => {
             await request(app)
                 .get('/doc/' + docId)
+                .set('auth-token', `${token}`)
                 .expect(200);
         });
     });
@@ -67,6 +86,7 @@ describe('Reports', () => {
             await request(app)
                 .post('/delete')
                 .send({"id": docId})
+                .set('auth-token', `${token}`)
                 .expect(200);
         });
     });

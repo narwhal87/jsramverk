@@ -1,10 +1,44 @@
 [
     {
-        "title": "Titel",
-        "content": "Content"
+        "title": "Test title",
+        "content": "Test content",
+        "owner": "test",
+        "viewer": "test@test.com"
     },
     {
-        "title": "Asdf",
-        "content": "qwerty"
+        "title": "Very serious document",
+        "content": "with a lot of serious content",
+        "owner": "test",
+        "viewer": ["test@test.com"]
+    },
+    {
+        "title": "Test title",
+        "content": "Test content",
+        "owner": "test",
+        "viewer": "test@test.com"
+    },
+    {
+        "title": "Test title",
+        "content": "Test content",
+        "owner": "test",
+        "viewer": "test@test.com"
+    },
+    {
+        "title": "Test title",
+        "content": "Test content",
+        "owner": "test",
+        "viewer": "test@test.com"
+    },
+    {
+        "title": "Test title",
+        "content": "Test content",
+        "owner": "test",
+        "viewer": "test@test.com"
+    },
+    {
+        "title": "Test title",
+        "content": "Test content",
+        "owner": "test",
+        "viewer": "test@test.com"
     }
 ]

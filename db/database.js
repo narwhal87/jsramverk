@@ -54,8 +54,6 @@ const database = {
                 return coll.name
             })
 
-            console.log(collections)
-
         } catch (err) {
             console.log(err);
         }

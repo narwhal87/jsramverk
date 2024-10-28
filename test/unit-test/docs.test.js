@@ -9,7 +9,7 @@ describe('Testing docs.js success', () => {
 
     beforeAll(async () => {
         await setup();
-        let all = await docs.getAll();
+        let all = await docs.getAll({owner: "test"});
 
         expect(all.length).toBeGreaterThan(1);
         docId = all[0]._id.toString();
@@ -18,7 +18,7 @@ describe('Testing docs.js success', () => {
 
     describe('GetAll', () => {
         it('Should return all documents', async () => {
-            let all = await docs.getAll();
+            let all = await docs.getAll({owner: "test"});
 
             expect(typeof all).toBe('object');
             expect(all[0]).toHaveProperty('_id');
