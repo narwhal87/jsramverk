@@ -74,9 +74,29 @@ app.use((err, req, res, next) => {
     });
 });
 
-const server = app.listen(port, () => {
+const httpServer = require("http").createServer(app);
+const io = require("socket.io")(httpServer, {
+    cors: {
+      origin: "*",
+      methods: ["GET", "POST"]
+    }
+});
+  
+io.on('connection', function(socket) {
+    console.log(socket.id);
+    console.log("socket connected");
+    socket.on('create', function(room) {
+        console.log("Created room with id: " + room)
+        socket.join(room);
+    });
+    socket.on('doc', function(data) {
+        console.log('Doc with id: ' + data['id'] + " changed.")
+        socket.to(data["id"]).emit("doc", data);
+    })
+});
+
+const server = httpServer.listen(port, () => {
     console.log(`API backend listening on port ${port}`);
-    app.emit('ready');
 });
 
 module.exports = server;
