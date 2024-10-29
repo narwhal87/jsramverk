@@ -4,7 +4,7 @@
   "description": "Starter project for DV1677 JSRamverk",
   "main": "app.mjs",
   "scripts": {
-    "test": "jest --coverage --runInBand --forceExit",
+    "test": "jest --coverage --runInBand",
     "start": "node app.js",
     "lint": "npx eslint",
     "lint:fix": "npx eslint --fix"

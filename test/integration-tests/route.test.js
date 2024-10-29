@@ -1,3 +1,5 @@
+const { default: mongoose } = require("mongoose");
+
 process.env.NODE_ENV = 'test';
 
 describe('Reports', () => {
@@ -7,8 +9,8 @@ describe('Reports', () => {
     let token;
 
     beforeAll(async () => {
-        request = require('supertest');
         app = require("../../app");
+        request = require('supertest');
         let user = {
             username: "test",
             password: "pwd123"
@@ -26,6 +28,7 @@ describe('Reports', () => {
 
     afterAll(() => {
         app.close();
+        mongoose.connection.close();
     });
 
     describe('GET /', () => {

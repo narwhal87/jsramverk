@@ -1,6 +1,5 @@
 process.env.NODE_ENV = 'test';
 
-const app = require("../../app");
 const database = require("../../db/database.js");
 
 describe('Reports', () => {
@@ -25,5 +24,3 @@ describe('Reports', () => {
         await db.collection.deleteOne(testBody);
     });
 });
-
-app.close();
