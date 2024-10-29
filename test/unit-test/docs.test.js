@@ -14,7 +14,7 @@ describe('Testing docs.js success', () => {
         expect(all.length).toBeGreaterThan(1);
         docId = all[0]._id.toString();
         toRemove = all[1]._id.toString();
-    }, 5000);
+    });
 
     describe('GetAll', () => {
         it('Should return all documents', async () => {
@@ -54,6 +54,11 @@ describe('Testing docs.js success', () => {
             let pre = await docs.getOne(docId);
             expect(pre[0]).not.toHaveProperty('viewer');
 
+            // Mock the mailgun call
+            const mailgun = require('../../models/mailgun.js');
+            console.log(mailgun)
+            mailgun.mgShare = jest.fn();
+
             await docs.share({'id': docId, 'email': 'test@test.com'});
             let one = await docs.getOne(docId);
 
@@ -66,6 +71,7 @@ describe('Testing docs.js success', () => {
 
             expect(typeof one[0].viewer).toBe('object');
             expect(one[0].viewer).toContain('test@test.com');
+            expect(mailgun.mgShare).toHaveBeenCalledWith("test@test.com")
         });
     });
 
