@@ -13,6 +13,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env: 
+      super_secret: ${{ secrets.SuperSecret }}
 
     strategy:
       matrix:
