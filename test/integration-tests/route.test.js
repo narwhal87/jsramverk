@@ -16,7 +16,7 @@ describe('Reports', () => {
         const response = await request(app)
             .post('/login')
             .send(user);
-        token = response.body.token ? response.body.token : "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3MjBlNjg2OGExNzExNjBmMzIyNTRlOCIsImlhdCI6MTczMDIxMTExOH0.G2zImHhnBPQsFnJx9KKp3qAPI5qKTtWVE-uv78VTqiQ";
+        token = response.body.token ? response.body.token : process.env.super_secret;
         console.log(response.status);
         console.log("User logged in\nToken: ", token);
         // token = (await request(app).get('/authentication/test')).body.token;
