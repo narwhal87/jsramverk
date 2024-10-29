@@ -2,7 +2,7 @@ const formData = require('form-data');
 const Mailgun = require('mailgun.js');
 // import Mailgun from 'mailgun.js';
 const mailgun = new Mailgun(formData);
-const mg = mailgun.client({username: 'api', key: process.env.MAILGUN_API_KEY});
+const mg = mailgun.client({username: 'api', key: process.env.MAILGUN_API_KEY || "test"});
 const frontURL = process.env.NODE_ENV === 'development' || undefined ? "http://localhost:3000" : "https://www.student.bth.se/~alpt22/editor/";
   
 const mailginUtils = {
