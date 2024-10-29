@@ -44,6 +44,28 @@ describe('Testing docs.js success', () => {
             expect(one[0]).toHaveProperty('_id');
             expect(one[0]).toHaveProperty('title');
             expect(one[0]).toHaveProperty('content');
+            expect(one[0]).toHaveProperty('owner');
+        });
+    });
+
+    describe('share', () => {
+        it('Should add viewer email to document', async () => {
+            
+            let pre = await docs.getOne(docId);
+            expect(pre[0]).not.toHaveProperty('viewer');
+
+            await docs.share({'id': docId, 'email': 'test@test.com'});
+            let one = await docs.getOne(docId);
+
+            expect(typeof one).toBe('object');
+            expect(one[0]).toHaveProperty('_id');
+            expect(one[0]).toHaveProperty('title');
+            expect(one[0]).toHaveProperty('content');
+            expect(one[0]).toHaveProperty('owner');
+            expect(one[0]).toHaveProperty('viewer');
+
+            expect(typeof one[0].viewer).toBe('object');
+            expect(one[0].viewer).toContain('test@test.com');
         });
     });
 

@@ -13,6 +13,7 @@ const database = {
 
         if (process.env.NODE_ENV === 'test') {
             // eslint-disable-next-line max-len
+            console.log("Test environment detected. Switching database to test.");
             dsn = `mongodb+srv://Tester:superTest@jsramverk.8gn6u.mongodb.net/test?retryWrites=true&w=majority&appName=jsramverk`;
         }
 
@@ -32,6 +33,7 @@ const database = {
 
         if (process.env.NODE_ENV === 'test') {
             // eslint-disable-next-line max-len
+            console.log("Test environment detected. Switching database to test.");
             dsn = `mongodb+srv://Tester:superTest@jsramverk.8gn6u.mongodb.net/test?retryWrites=true&w=majority&appName=jsramverk`;
         }
 
@@ -46,14 +48,16 @@ const database = {
     },
 
     mongoConnection: async function mongoConnection() {
+        let dsn = `mongodb+srv://${process.env.ATLAS_USERNAME}:${process.env.ATLAS_PASSWORD}@jsramverk.8gn6u.mongodb.net/test?retryWrites=true&w=majority&appName=jsramverk`;
+
+        if (process.env.NODE_ENV === ('test' || undefined)) {
+            // eslint-disable-next-line max-len
+            console.log("Test environment detected. Switching database to test.");
+            dsn = `mongodb+srv://Tester:superTest@jsramverk.8gn6u.mongodb.net/test?retryWrites=true&w=majority&appName=jsramverk`;
+        }
+
         try {
-            await mongoose.connect(process.env.MONGO_CONNECTION_URL); //Mongoose is itself an object, no return
-
-            //Check available collections
-            const collections = await (await mongoose.connection.db.listCollections().toArray()).map((coll) => {
-                return coll.name
-            })
-
+            await mongoose.connect(dsn); //Mongoose is itself an object, no return
         } catch (err) {
             console.log(err);
         }

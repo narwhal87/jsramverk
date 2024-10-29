@@ -17,6 +17,8 @@ describe('Reports', () => {
             .post('/login')
             .send(user);
         token = response.body.token;
+        console.log(response.status);
+        console.log("User logged in\nToken: ", token);
         // token = (await request(app).get('/authentication/test')).body.token;
 
         // token = process.env.JEST_MOCK_TOKEN;
@@ -97,5 +99,21 @@ describe('Reports', () => {
                 .get('/pizzaplace')
                 .expect(404);
         });
+    });
+
+    describe('POST /register', () => {
+
+        const registerBody = {
+            username: "new2",
+            password: "pwd123",
+            email: "newem2@ail.com"
+        }
+
+        it('Should create a new user', async () => {
+            await request(app)
+                .post('/register')
+                .send(registerBody)
+                .expect(200);
+        })
     });
 });

@@ -1,7 +1,6 @@
 const documents = require("../docs.js");
 const express = require('express');
 const auth = require('../models/auth.js');
-const mailgun = require('../models/mailgun.js');
 
 var router = express.Router();
 
