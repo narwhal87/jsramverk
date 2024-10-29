@@ -52,6 +52,7 @@ const database = {
 
         if (process.env.NODE_ENV === ('test' || undefined)) {
             // eslint-disable-next-line max-len
+            console.log("Environment: ", process.env.NODE_ENV);
             console.log("Test environment detected. Switching database to test.");
             dsn = `mongodb+srv://Tester:superTest@jsramverk.8gn6u.mongodb.net/test?retryWrites=true&w=majority&appName=jsramverk`;
         }

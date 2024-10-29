@@ -16,7 +16,7 @@ describe('Reports', () => {
         const response = await request(app)
             .post('/login')
             .send(user);
-        token = response.body.token;
+        token = response.body.token ? response.body.token : "asdf";
         console.log(response.status);
         console.log("User logged in\nToken: ", token);
         // token = (await request(app).get('/authentication/test')).body.token;
