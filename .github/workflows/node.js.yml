@@ -29,5 +29,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        github-token: ${{ secrets.NEW_SECRET_TOKEN }}
     - run: npm install
     - run: npm test
