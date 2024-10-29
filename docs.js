@@ -63,6 +63,7 @@ const docs = {
             const doc = {
                 title: body.title,
                 content: body.content,
+                mode: body.mode,
                 owner: body.username,
                 ownerID: body.userID,
                 viewer: body.email
@@ -85,8 +86,8 @@ const docs = {
                 '$set': {
                 }
             };
-            // Checks if title or content are undefined to prevent null columns in database
 
+            // Checks if fields are undefined to prevent null columns in database
             if (body.title != undefined) {
                 updateDocument['$set'].title = body.title;
             }
@@ -95,6 +96,9 @@ const docs = {
             }
             if (body.viewer != undefined) {
                 updateDocument['$set'].viewer = body.viewer;
+            }
+            if (body.mode != undefined) {
+                updateDocument['$set'].mode = body.mode;
             }
 
             await db.collection.updateOne({'_id': query}, updateDocument);
