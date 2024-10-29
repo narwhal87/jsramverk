@@ -13,6 +13,7 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env: super_secret: ${{ secrets.SuperSecret }}
 
     strategy:
       matrix:
@@ -29,6 +30,5 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        github-token: ${{ secrets.NEW_SECRET_TOKEN }}
     - run: npm install
     - run: npm test
