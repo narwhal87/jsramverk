@@ -1,0 +1,17 @@
+[
+    {
+        "username": "useless",
+        "email": "fakeem@i.l",
+        "password": "passwd"
+    },
+    {
+        "username": "Asdf",
+        "email": "qwerty@asdf.se",
+        "password": "asdf"
+    },
+    {
+        "username": "test",
+        "email": "test@test.com",
+        "password": "pwd123"
+    }
+]
