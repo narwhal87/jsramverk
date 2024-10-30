@@ -14,7 +14,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env: 
-      super_secret: ${{ secrets.SuperSecret }}
+      SECRET_JWT: verysecretjwt
 
     strategy:
       matrix:
