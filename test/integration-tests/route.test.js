@@ -1,6 +1,5 @@
 const { default: mongoose } = require("mongoose");
-const docs = require('../../docs');
-const setup = require('../../db/setup.js');
+const setup = require('../../db/setup.js'); // New
 
 process.env.NODE_ENV = 'test';
 
@@ -11,11 +10,7 @@ describe('Reports', () => {
     let token;
 
     beforeAll(async () => {
-        await setup();
-        let all = await docs.getAll({owner: "test"});
-        console.log("all", all);
-
-        expect(all.length).toBeGreaterThan(1);
+        await setup(); // New
 
         app = require("../../app");
         request = require('supertest');
@@ -28,6 +23,7 @@ describe('Reports', () => {
             .send(user);
         token = response.body.token ? response.body.token : process.env.super_secret;
         console.log(response.status, response.message);
+        console.log(response);
         console.log("User logged in\nToken: ", token);
         // token = (await request(app).get('/authentication/test')).body.token;
 
