@@ -23,7 +23,6 @@ describe('Reports', () => {
             .send(user);
         token = response.body.token ? response.body.token : process.env.super_secret;
         console.log(response.status, response.message);
-        console.log(response);
         console.log("User logged in\nToken: ", token);
         // token = (await request(app).get('/authentication/test')).body.token;
 

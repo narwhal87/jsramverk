@@ -10,25 +10,24 @@ router.post('/login', async (req, res) => {
 
     // Validate input with Joi
     const { error } = loginValidation(req.body);
-    if (error) return res.status(403).send(error.details[0].message);
+    if (error) return res.status(400).send(error.details[0].message);
 
     const user = new User({
         username: req.body.username,
         password: req.body.password,
     });
 
-    console.log(req.body, user);
+    // console.log(user);
 
     try {
         const userConfirmation = await User.findOne({username: req.body.username});
-        console.log(userConfirmation);
-        if (!userConfirmation) return res.status(401).send({"message": "User does not exists."});
+        if (!userConfirmation) return res.status(400).send({"message": "User does not exists."});
 
         const validate = await bcrypt.compare(
             req.body.password,
             userConfirmation.password
         );
-        if (!validate) return res.status(402).send({"message": "Invalid password"});
+        if (!validate) return res.status(400).send({"message": "Invalid password"});
 
         const token = jwt.sign(
             { 
