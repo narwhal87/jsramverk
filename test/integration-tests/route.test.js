@@ -13,9 +13,10 @@ describe('Reports', () => {
     beforeAll(async () => {
         await setup();
         let all = await docs.getAll({owner: "test"});
+        console.log("all", all);
 
         expect(all.length).toBeGreaterThan(1);
-        
+
         app = require("../../app");
         request = require('supertest');
         let user = {
