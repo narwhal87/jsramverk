@@ -7,12 +7,11 @@ describe('Reports', () => {
     let request;
     let docId;
     let token;
-    let user;
 
     beforeAll(async () => {
         app = require("../../app");
         request = require('supertest');
-        user = {
+        let user = {
             username: "test",
             password: "pwd123"
         }
@@ -20,7 +19,7 @@ describe('Reports', () => {
             .post('/login')
             .send(user);
         token = response.body.token ? response.body.token : process.env.super_secret;
-        console.log(response.status);
+        console.log(response.status, response.body.message);
         console.log("User logged in\nToken: ", token);
         // token = (await request(app).get('/authentication/test')).body.token;
 
@@ -34,6 +33,11 @@ describe('Reports', () => {
 
     describe('POST /login', () => {
         it('Should log in a user', async () => {
+            let user = {
+                username: "test",
+                password: "pwd123"
+            }
+            
             await request(app)
                 .post("/login")
                 .send(user)
