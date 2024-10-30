@@ -14,19 +14,18 @@ describe('Reports', () => {
 
         app = require("../../app");
         request = require('supertest');
-        let user = {
-            username: "test",
-            password: "pwd123"
-        }
-        const response = await request(app)
-            .post('/login')
-            .send(user);
-        token = response.body.token ? response.body.token : process.env.super_secret;
-        console.log(response.status, response.message);
-        console.log("User logged in\nToken: ", token);
-        // token = (await request(app).get('/authentication/test')).body.token;
+        // let user = {
+        //     username: "test",
+        //     password: "pwd123"
+        // }
+        // const response = await request(app)
+        //     .post('/login')
+        //     .send(user);
 
-        // token = process.env.JEST_MOCK_TOKEN;
+        // token = response.body.token ? response.body.token : process.env.super_secret;
+        // console.log(response.status, response.message);
+        // console.log("User logged in\nToken: ", token);
+        // token = (await request(app).get('/authentication/test')).body.token;
     });
 
     afterAll(() => {
@@ -34,14 +33,24 @@ describe('Reports', () => {
         mongoose.connection.close();
     });
 
-    // describe('POST /login', () => {
-    //     it('Should log in a user', async () => {
-    //         await request(app)
-    //             .post("/login")
-    //             .send(user)
-    //             .expect(200);
-    //     });
-    // });
+    describe('POST /register', () => {
+        it("fucking sucks", async () => {
+            await request(app)
+                .post("/register")
+                .send({username: "alf", email: "asdfasdadasda", password: "abc123"});
+        })
+    })
+
+    describe('POST /login', () => {
+        it('Should log in a user', async () => {
+            let response = await request(app)
+                .post("/login")
+                .send({username: "alf", password: "abc123"})
+                .expect(200);
+
+            token = response.body.token;
+        });
+    });
 
     describe('GET /', () => {
         it('Should return all documents', async () => {
