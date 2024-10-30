@@ -7,11 +7,12 @@ describe('Reports', () => {
     let request;
     let docId;
     let token;
+    let user;
 
     beforeAll(async () => {
         app = require("../../app");
         request = require('supertest');
-        let user = {
+        user = {
             username: "test",
             password: "pwd123"
         }
@@ -30,6 +31,15 @@ describe('Reports', () => {
         app.close();
         mongoose.connection.close();
     });
+
+    describe('POST /login', () => {
+        it('Should log in a user', async () => {
+            await request(app)
+                .post("/login")
+                .send(user)
+                .expect(200);
+        });
+    })
 
     describe('GET /', () => {
         it('Should return all documents', async () => {
