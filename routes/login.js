@@ -17,10 +17,11 @@ router.post('/login', async (req, res) => {
         password: req.body.password,
     });
 
-    // console.log(user);
+    console.log(req.body, user);
 
     try {
         const userConfirmation = await User.findOne({username: req.body.username});
+        console.log(userConfirmation);
         if (!userConfirmation) return res.status(401).send({"message": "User does not exists."});
 
         const validate = await bcrypt.compare(
@@ -44,6 +45,6 @@ router.post('/login', async (req, res) => {
         res.status(400).send(e);
     }
 
-})
+});
 
 module.exports = router;
