@@ -1,4 +1,6 @@
 const { default: mongoose } = require("mongoose");
+const docs = require('../../docs');
+const setup = require('../../db/setup.js');
 
 process.env.NODE_ENV = 'test';
 
@@ -9,6 +11,11 @@ describe('Reports', () => {
     let token;
 
     beforeAll(async () => {
+        await setup();
+        let all = await docs.getAll({owner: "test"});
+
+        expect(all.length).toBeGreaterThan(1);
+        
         app = require("../../app");
         request = require('supertest');
         let user = {
