@@ -1,0 +1,22 @@
+[
+    {
+        "username": "useless",
+        "email": "fakeem@i.l",
+        "password": "passwd"
+    },
+    {
+        "username": "Asdf",
+        "email": "qwerty@asdf.se",
+        "password": "asdf"
+    },
+    {
+        "username": "test",
+        "email": "test@test.com",
+        "password": "$2a$10$LlbZxFb/MkhGYawjtXIFP.23RfecaEbZN04zlCHsJyJin8SqJ6D2O"
+    },
+    {
+        "username": "test pw w/o jwt sign",
+        "email": "qwerty@asdf.se",
+        "password": "pwd123"
+    }
+]

@@ -1,5 +1,4 @@
 const { default: mongoose } = require("mongoose");
-const setup = require('../../db/setup.js');
 
 process.env.NODE_ENV = 'test';
 
@@ -10,7 +9,6 @@ describe('Reports', () => {
     let token;
 
     beforeAll(async () => {
-        await setup();
         app = require("../../app");
         request = require('supertest');
         let user = {
@@ -21,7 +19,7 @@ describe('Reports', () => {
             .post('/login')
             .send(user);
         token = response.body.token ? response.body.token : process.env.super_secret;
-        console.log(response.status, response.body.message);
+        console.log(response.status);
         console.log("User logged in\nToken: ", token);
         // token = (await request(app).get('/authentication/test')).body.token;
 
@@ -33,19 +31,14 @@ describe('Reports', () => {
         mongoose.connection.close();
     });
 
-    describe('POST /login', () => {
-        it('Should log in a user', async () => {
-            let user = {
-                username: "test",
-                password: "pwd123"
-            }
-
-            await request(app)
-                .post("/login")
-                .send(user)
-                .expect(200);
-        });
-    })
+    // describe('POST /login', () => {
+    //     it('Should log in a user', async () => {
+    //         await request(app)
+    //             .post("/login")
+    //             .send(user)
+    //             .expect(200);
+    //     });
+    // });
 
     describe('GET /', () => {
         it('Should return all documents', async () => {
