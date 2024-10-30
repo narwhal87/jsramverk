@@ -10,7 +10,7 @@ describe('Reports', () => {
     let token;
 
     beforeAll(async () => {
-        await setup(); // New
+        // await setup(); // New
 
         app = require("../../app");
         request = require('supertest');
