@@ -16,6 +16,11 @@ describe('Testing docs.js success', () => {
         toRemove = all[1]._id.toString();
     });
 
+    afterAll(() => {
+        app.close();
+        mongoose.connection.close();
+    });
+
     describe('GetAll', () => {
         it('Should return all documents', async () => {
             let all = await docs.getAll({owner: "test"});
@@ -61,9 +66,13 @@ describe('Testing docs.js success', () => {
 
             await docs.share({'id': docId, 'email': 'test@test.com'});
             let one = await docs.getOne(docId);
+            console.log("one", one);
 
             expect(typeof one).toBe('object');
             expect(one[0]).toHaveProperty('_id');
+
+
+
             expect(one[0]).toHaveProperty('title');
             expect(one[0]).toHaveProperty('content');
             expect(one[0]).toHaveProperty('owner');
