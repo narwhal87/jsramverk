@@ -65,9 +65,6 @@ describe('Testing docs.js success', () => {
 
             expect(typeof one).toBe('object');
             expect(one[0]).toHaveProperty('_id');
-
-
-
             expect(one[0]).toHaveProperty('title');
             expect(one[0]).toHaveProperty('content');
             expect(one[0]).toHaveProperty('owner');

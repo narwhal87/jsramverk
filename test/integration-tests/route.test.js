@@ -1,5 +1,6 @@
 const { default: mongoose } = require("mongoose");
 const setup = require('../../db/setup.js');
+const docs = require("../../docs.js");
 
 process.env.NODE_ENV = 'test';
 
@@ -11,6 +12,7 @@ describe('Reports', () => {
 
     beforeAll(async () => {
         // await setup();
+
         app = require("../../app");
         request = require('supertest');
         let user = {
@@ -25,8 +27,8 @@ describe('Reports', () => {
     });
 
     afterAll(() => {
-        app.close();
         mongoose.connection.close();
+        app.close();
     });
 
     describe('GET /', () => {
@@ -115,6 +117,35 @@ describe('Reports', () => {
                 .post('/register')
                 .send(registerBody)
                 .expect(200);
+        })
+    });
+
+    describe('POST /share', () => {
+        it('Should share a document', async () => {
+
+            const shareBody = {
+                "id": "09u09saoishjdapoisjd",
+                "email": "testbuddy@test.com"
+            }
+            // Mock the mailgun call
+            // console.log(mailgun)
+            docs.share = jest.fn();
+            await request(app)
+                .post('/share')               
+                .send(shareBody)
+                .set('auth-token', `${token}`)
+                .expect(200);
+        });
+
+        it('Should fail to share a document', async () => {
+            docs.share = jest.fn().mockImplementation(() => {
+                throw new Error('Database on fire')
+        });
+            await request(app)
+                .post('/share')
+                .send()
+                .set('auth-token', `${token}`)
+                .expect(500);
         })
     });
 });
