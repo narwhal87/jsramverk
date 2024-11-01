@@ -11,19 +11,19 @@ router.get('/doc/:id',
     async (req, res) => {
 
         const token = req.header('auth-token');
-        if (!token) return res.status(400).send("Access denied!");
+        if (!token) return res.status(400).send("No token! Access denied!");
 
         const userID = jwt.decode(token, process.env.SECRET_JWT);
-        if (!userID) return res.status(400).send("Access denied!");
-
+        if (!userID) return res.status(400).send("No userID tied to token! Access denied!");
+  
         const currentUser = await User.findById(userID.id);
-        if (!currentUser) return res.status(400).send("Access denied!");
+        console.log(currentUser)
+        if (!currentUser) return res.status(400).send("No user! Access denied!");
 
         try {
             const result = await documents.getOne(req.params.id);
-            
             // console.log("Result", result);
-            if ((result[0].viewer && result[0].viewer.includes(currentUser.email)) || userID.id === result[0].ownerID) {
+            if ((result[0].viewer && result[0].viewer.includes(currentUser.email)) || currentUser.username === result[0].owner) {
                 // console.log("Viewer", result[0].viewer);
                 res.json({data: result});
             }

@@ -38,7 +38,7 @@ router.post('/login', async (req, res) => {
 
         if (!token) return res.status(500).send({"message": "JWT signature error"});
 
-        return res.header("auth-token", token).send({"token": token, "message": "Login successful"});
+        return res.header("auth-token", token).send({"token": token, "message": "Login successful", status: 200});
 
     } catch (e) {
         res.status(400).send(e);

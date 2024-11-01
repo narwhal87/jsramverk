@@ -15,6 +15,7 @@ const auth = {
         }
     },
 
+    // Is this used anywhere?
     checkUser: async function checkUser(req, res) {
         const token = req.header('auth-token');
         if (!token) return res.status(400).send("Access denied!");

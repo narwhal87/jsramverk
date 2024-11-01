@@ -99,7 +99,7 @@ const io = require("socket.io")(httpServer, {
       methods: ["GET", "POST"]
     }
 });
-  
+
 io.on('connection', function(socket) {
     console.log(socket.id);
     console.log("socket connected");

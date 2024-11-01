@@ -7,17 +7,6 @@ const {
 
 var router = express.Router();
 
-router.get('/register', async (req, res) => {
-    try {
-        const test = await auth.registerUser();
-        console.log("Abo: ", test);
-        res.send({"Abo.": "hehu"});
-    } catch (e) {
-        res.status(500);
-        res.send({"message": "Something went wrong.", "error": e});
-    }
-});
-
 router.post('/register', async (req, res) => {
     
     // Validade input data with Joi
